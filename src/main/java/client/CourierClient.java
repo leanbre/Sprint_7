@@ -23,7 +23,7 @@ public class CourierClient {
                 .post(CREATE_COURIER_API_PATH);
     }
 
-    @Step("Проводим авторизацию курера")
+    @Step("Проводим авторизацию курьера")
     public Response logInCourierAndReturnResponse(Courier courier) {
         return given()
                 .log()
@@ -32,5 +32,12 @@ public class CourierClient {
                 .body(courier)
                 .when()
                 .post(COURIER_LOG_IN_API_PATH);
+    }
+
+    @Step("Удаляем курьера по id")
+    public Response deleteCourierByIdAndReturnResponse(String courierId) {
+        return given()
+                .when()
+                .delete(CREATE_COURIER_API_PATH + "/" + courierId);
     }
 }

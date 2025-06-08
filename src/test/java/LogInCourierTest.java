@@ -33,12 +33,9 @@ public class LogInCourierTest {
     public void after() {
         // Если у нас остался заполненным courierId, значит, данные требуют очистки
         if (courierId != null) {
-            Response response = RestAssured
-                    .given()
-                    .when()
-                    .delete(CourierClient.CREATE_COURIER_API_PATH + "/" + courierId);
+            Response deleteCourierResponse = courierClient.deleteCourierByIdAndReturnResponse(courierId);
             // А теперь проверяем код ответа, что удаление прошло успешно
-            response
+            deleteCourierResponse
                     .then()
                     .log()
                     .all()
@@ -148,7 +145,7 @@ public class LogInCourierTest {
     @Description("Проверка авторизации курьера с некорректно указанным логином")
     public void courierLoginWithIncorrectLoginTest() {
         // Указываем неправильный логин
-        String incorrectLogin = defaultCourierLogin + System.currentTimeMillis();;
+        String incorrectLogin = defaultCourierLogin + System.currentTimeMillis();
         Courier courierWithIncorrectLogin = new Courier(
                 incorrectLogin,
                 defaultCourierPassword,

@@ -19,4 +19,13 @@ public class OrdersClient {
                 .when()
                 .post(CREATE_ORDER_API_PATH);
     }
+
+    @Step("Получаем заказы")
+    public Response getOrdersAndReturnResponse() {
+        return given()
+                .header("Content-type", "application/json")
+                .log()
+                .all()
+                .get("/api/v1/orders");
+    }
 }

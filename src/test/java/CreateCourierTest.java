@@ -29,12 +29,9 @@ public class CreateCourierTest {
     public void after() {
         // Если у нас остался заполненным courierId, значит, данные требуют очистки
         if (courierId != null) {
-            Response response = RestAssured
-                    .given()
-                    .when()
-                    .delete(CourierClient.CREATE_COURIER_API_PATH + "/" + courierId);
+            Response deleteCourierResponse = courierClient.deleteCourierByIdAndReturnResponse(courierId);
             // А теперь проверяем код ответа, что удаление прошло успешно
-            response
+            deleteCourierResponse
                     .then()
                     .log()
                     .all()
